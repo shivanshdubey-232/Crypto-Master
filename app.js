@@ -24,7 +24,7 @@ fetch("https://api.coinlore.net/api/tickers/")
             currDay.innerText = complete.data[i].percent_change_24h
             currWeek.innerText = complete.data[i].percent_change_7d
             currency.append(currName, currPrice, currRank, currSymbol, currName, currPrice, currHour, currDay, currWeek)
-            if(parseInt(complete.data[i].percent_change_7d)  > 0)
+            if(complete.data[i].percent_change_24h > 0)
             {
 
                 currency.classList.add("table-success")
