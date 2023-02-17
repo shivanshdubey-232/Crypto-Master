@@ -1,10 +1,6 @@
-fetch("https://api.coinlore.net/api/tickers/")
-    .then((data) =>{
-        console.log("Here is your data : ", data)
-        return data.json()
-    })
-    .then((complete) => {
-        console.log(complete.data[0])
+axios.get('https://api.coinlore.net/api/tickers/')
+.then((complete) => {
+        complete = complete.data
         for(let i = 0; i < 100; i++)
         {
             let currencies = document.querySelector("#currencies") 
@@ -24,7 +20,7 @@ fetch("https://api.coinlore.net/api/tickers/")
             currDay.innerText = complete.data[i].percent_change_24h
             currWeek.innerText = complete.data[i].percent_change_7d
             currency.append(currName, currPrice, currRank, currSymbol, currName, currPrice, currHour, currDay, currWeek)
-            if(complete.data[i].percent_change_24h > 0)
+            if(complete.data[i].percent_change_24h  > 0)
             {
 
                 currency.classList.add("table-success")
@@ -34,9 +30,14 @@ fetch("https://api.coinlore.net/api/tickers/")
                 currency.classList.add("table-danger")
             }
             currencies.append(currency)
-        }
-
-    })
-    .catch((e) => {
-        console.log("Oh no!, Error", e)
-    })
+        }     
+})
+.catch((err) => {
+     let alertError = document.querySelector("#error")
+     let errKey = document.createElement("strong")
+     errKey.innerText="Error Occurred !!!  : "
+     alertError.append(errKey)
+     alertError.append(err)
+     alertError.classList.add("alert",  "alert-danger")
+     alertError.role = "alert"
+})
